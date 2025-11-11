@@ -21,10 +21,6 @@ func Load() {
 	setDefault("DB_HOST", "localhost")
 	setDefault("DB_PORT", "5432")
 	setDefault("DB_SSLMODE", "disable")
-
-	// Debug: Print what we loaded
-	log.Printf("DB_NAME: %s", os.Getenv("DB_NAME"))
-	log.Printf("DB_USER: %s", os.Getenv("DB_USER"))
 }
 
 func setDefault(key, value string) {

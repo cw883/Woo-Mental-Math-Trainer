@@ -19,10 +19,11 @@ func CreateSession(c *gin.Context) {
 	}
 
 	session := models.Session{
-		UserID:    req.UserID,
-		Score:     0,
-		Duration:  120, // 120 seconds
-		StartedAt: time.Now(),
+		UserID:            req.UserID,
+		Score:             0,
+		Duration:          120, // 120 seconds
+		IsDefaultSettings: req.IsDefaultSettings,
+		StartedAt:         time.Now(),
 	}
 
 	if err := database.DB.Create(&session).Error; err != nil {
@@ -77,6 +78,25 @@ func CompleteSession(c *gin.Context) {
 	c.JSON(http.StatusOK, session)
 }
 
+// DeleteSession deletes a session by ID
+func DeleteSession(c *gin.Context) {
+	sessionID := c.Param("id")
+
+	// Delete associated problems first
+	if err := database.DB.Where("session_id = ?", sessionID).Delete(&models.Problem{}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete session problems"})
+		return
+	}
+
+	// Delete the session
+	if err := database.DB.Delete(&models.Session{}, sessionID).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete session"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Session deleted successfully"})
+}
+
 // GetSessions retrieves all sessions, optionally filtered by user_id
 func GetSessions(c *gin.Context) {
 	userID := c.Query("user_id")
@@ -113,11 +133,12 @@ func GetSessions(c *gin.Context) {
 		}
 
 		summaries[i] = models.SessionSummary{
-			ID:        session.ID,
-			Score:     session.Score,
-			Duration:  session.Duration,
-			StartedAt: session.StartedAt,
-			EndedAt:   endedAt,
+			ID:                session.ID,
+			Score:             session.Score,
+			Duration:          session.Duration,
+			IsDefaultSettings: session.IsDefaultSettings,
+			StartedAt:         session.StartedAt,
+			EndedAt:           endedAt,
 		}
 	}
 

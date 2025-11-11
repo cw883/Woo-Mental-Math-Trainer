@@ -43,6 +43,7 @@ func main() {
 		api.POST("/sessions", handlers.CreateSession)
 		api.GET("/sessions/:id", handlers.GetSession)
 		api.PATCH("/sessions/:id/complete", handlers.CompleteSession)
+		api.DELETE("/sessions/:id", handlers.DeleteSession)
 		api.GET("/sessions", handlers.GetSessions)
 
 		// Problem routes

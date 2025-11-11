@@ -17,13 +17,6 @@ var DB *gorm.DB
 func Connect() error {
 	var err error
 
-	// Debug: Print environment variables
-	log.Printf("DB_HOST: %s", os.Getenv("DB_HOST"))
-	log.Printf("DB_USER: %s", os.Getenv("DB_USER"))
-	log.Printf("DB_NAME: %s", os.Getenv("DB_NAME"))
-	log.Printf("DB_PORT: %s", os.Getenv("DB_PORT"))
-	log.Printf("DB_SSLMODE: %s", os.Getenv("DB_SSLMODE"))
-
 	// Build DSN, omitting password if empty
 	password := os.Getenv("DB_PASSWORD")
 	var dsn string
@@ -47,8 +40,6 @@ func Connect() error {
 			os.Getenv("DB_SSLMODE"),
 		)
 	}
-
-	log.Printf("DSN: %s", dsn)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),

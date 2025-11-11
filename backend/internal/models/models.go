@@ -19,16 +19,17 @@ type User struct {
 
 // Session represents a single practice session
 type Session struct {
-	ID        uint           `gorm:"primaryKey" json:"id"`
-	UserID    *uint          `json:"user_id,omitempty"` // Nullable for anonymous users
-	Score     int            `json:"score"`
-	Duration  int            `json:"duration"` // in seconds
-	StartedAt time.Time      `json:"started_at"`
-	EndedAt   *time.Time     `json:"ended_at,omitempty"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Problems  []Problem      `gorm:"foreignKey:SessionID" json:"problems,omitempty"`
+	ID                 uint           `gorm:"primaryKey" json:"id"`
+	UserID             *uint          `json:"user_id,omitempty"` // Nullable for anonymous users
+	Score              int            `json:"score"`
+	Duration           int            `json:"duration"` // in seconds
+	IsDefaultSettings  bool           `json:"is_default_settings" gorm:"default:false"`
+	StartedAt          time.Time      `json:"started_at"`
+	EndedAt            *time.Time     `json:"ended_at,omitempty"`
+	CreatedAt          time.Time      `json:"created_at"`
+	UpdatedAt          time.Time      `json:"updated_at"`
+	DeletedAt          gorm.DeletedAt `gorm:"index" json:"-"`
+	Problems           []Problem      `gorm:"foreignKey:SessionID" json:"problems,omitempty"`
 }
 
 // Problem represents a single math problem in a session
@@ -75,7 +76,8 @@ type Settings struct {
 
 // CreateSessionRequest represents the request to create a new session
 type CreateSessionRequest struct {
-	UserID *uint `json:"user_id,omitempty"`
+	UserID            *uint `json:"user_id,omitempty"`
+	IsDefaultSettings bool  `json:"is_default_settings"`
 }
 
 // CreateSessionResponse represents the response after creating a session
@@ -100,9 +102,10 @@ type CompleteSessionRequest struct {
 
 // SessionSummary represents a summary view of a session for the history list
 type SessionSummary struct {
-	ID        uint      `json:"id"`
-	Score     int       `json:"score"`
-	Duration  int       `json:"duration"`
-	StartedAt time.Time `json:"started_at"`
-	EndedAt   time.Time `json:"ended_at"`
+	ID                uint      `json:"id"`
+	Score             int       `json:"score"`
+	Duration          int       `json:"duration"`
+	IsDefaultSettings bool      `json:"is_default_settings"`
+	StartedAt         time.Time `json:"started_at"`
+	EndedAt           time.Time `json:"ended_at"`
 }
