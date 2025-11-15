@@ -8,19 +8,23 @@ import (
 
 // User represents a user of the mental math trainer
 type User struct {
-	ID        uint           `gorm:"primaryKey" json:"id"`
-	Email     string         `gorm:"uniqueIndex" json:"email"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Sessions  []Session      `gorm:"foreignKey:UserID" json:"sessions,omitempty"`
-	Settings  *Settings      `gorm:"foreignKey:UserID" json:"settings,omitempty"`
+	ID           uint           `gorm:"primaryKey" json:"id"`
+	Username     string         `gorm:"uniqueIndex;not null" json:"username"`
+	Email        string         `gorm:"uniqueIndex;not null" json:"email"`
+	PasswordHash string         `json:"-"` // Never expose password hash in JSON
+	CreatedAt    time.Time      `json:"created_at"`
+	UpdatedAt    time.Time      `json:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"-"`
+	Sessions     []Session      `gorm:"foreignKey:UserID" json:"sessions,omitempty"`
+	Settings     *Settings      `gorm:"foreignKey:UserID" json:"settings,omitempty"`
 }
 
 // Session represents a single practice session
 type Session struct {
 	ID                 uint           `gorm:"primaryKey" json:"id"`
 	UserID             *uint          `json:"user_id,omitempty"` // Nullable for anonymous users
+	User               *User          `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	AnonymousName      string         `json:"anonymous_name,omitempty"` // Used when UserID is null
 	Score              int            `json:"score"`
 	Duration           int            `json:"duration"` // in seconds
 	IsDefaultSettings  bool           `json:"is_default_settings" gorm:"default:false"`
@@ -108,4 +112,33 @@ type SessionSummary struct {
 	IsDefaultSettings bool      `json:"is_default_settings"`
 	StartedAt         time.Time `json:"started_at"`
 	EndedAt           time.Time `json:"ended_at"`
+}
+
+// RegisterRequest represents the request to register a new user
+type RegisterRequest struct {
+	Username string `json:"username" binding:"required,min=3,max=20"`
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required,min=6"`
+}
+
+// LoginRequest represents the request to log in
+type LoginRequest struct {
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+}
+
+// AuthResponse represents the response for login/register
+type AuthResponse struct {
+	Token    string `json:"token"`
+	User     User   `json:"user"`
+}
+
+// LeaderboardEntry represents a single entry in the leaderboard
+type LeaderboardEntry struct {
+	Rank          int       `json:"rank"`
+	Username      string    `json:"username"`
+	Score         int       `json:"score"`
+	Duration      int       `json:"duration"`
+	StartedAt     time.Time `json:"started_at"`
+	IsAnonymous   bool      `json:"is_anonymous"`
 }

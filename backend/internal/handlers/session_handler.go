@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+	"math/rand"
 	"net/http"
 	"strconv"
 	"time"
@@ -14,16 +16,26 @@ import (
 func CreateSession(c *gin.Context) {
 	var req models.CreateSessionRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		// If no body provided, create anonymous session
-		req.UserID = nil
+		// If no body provided, use defaults
+		req.IsDefaultSettings = false
 	}
 
 	session := models.Session{
-		UserID:            req.UserID,
 		Score:             0,
 		Duration:          120, // 120 seconds
 		IsDefaultSettings: req.IsDefaultSettings,
 		StartedAt:         time.Now(),
+	}
+
+	// Check if user is authenticated
+	if userID, exists := c.Get("user_id"); exists {
+		// User is authenticated, use their ID
+		uid := userID.(uint)
+		session.UserID = &uid
+	} else {
+		// User is anonymous, generate a fun anonymous name
+		session.AnonymousName = generateAnonymousName()
+		session.UserID = nil
 	}
 
 	if err := database.DB.Create(&session).Error; err != nil {
@@ -35,6 +47,28 @@ func CreateSession(c *gin.Context) {
 		SessionID: session.ID,
 		StartedAt: session.StartedAt,
 	})
+}
+
+// generateAnonymousName creates a fun anonymous name
+func generateAnonymousName() string {
+	adjectives := []string{
+		"Swift", "Clever", "Quick", "Sharp", "Brilliant",
+		"Fast", "Smart", "Rapid", "Nimble", "Speedy",
+		"Bright", "Keen", "Alert", "Agile", "Deft",
+	}
+
+	nouns := []string{
+		"Calculator", "Mathematician", "Scholar", "Genius", "Wizard",
+		"Master", "Expert", "Champion", "Ace", "Pro",
+		"Ninja", "Samurai", "Knight", "Hero", "Legend",
+	}
+
+	rand.Seed(time.Now().UnixNano())
+	adjective := adjectives[rand.Intn(len(adjectives))]
+	noun := nouns[rand.Intn(len(nouns))]
+	number := rand.Intn(9999) + 1
+
+	return fmt.Sprintf("%s %s %d", adjective, noun, number)
 }
 
 // GetSession retrieves a session by ID with all problems

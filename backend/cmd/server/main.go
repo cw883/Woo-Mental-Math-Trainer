@@ -39,19 +39,39 @@ func main() {
 	// API routes
 	api := router.Group("/api")
 	{
-		// Session routes
-		api.POST("/sessions", handlers.CreateSession)
-		api.GET("/sessions/:id", handlers.GetSession)
-		api.PATCH("/sessions/:id/complete", handlers.CompleteSession)
-		api.DELETE("/sessions/:id", handlers.DeleteSession)
-		api.GET("/sessions", handlers.GetSessions)
+		// Auth routes (no authentication required)
+		api.POST("/auth/register", handlers.Register)
+		api.POST("/auth/login", handlers.Login)
 
-		// Problem routes
-		api.POST("/sessions/:id/problems", handlers.SubmitProblem)
+		// Leaderboard route (no authentication required)
+		api.GET("/leaderboard", handlers.GetLeaderboard)
 
-		// Settings routes
-		api.GET("/settings", handlers.GetSettings)
-		api.PUT("/settings", handlers.UpdateSettings)
+		// Routes with optional authentication
+		optionalAuth := api.Group("/")
+		optionalAuth.Use(middleware.OptionalAuth())
+		{
+			// Session routes (can be used anonymously or authenticated)
+			optionalAuth.POST("/sessions", handlers.CreateSession)
+			optionalAuth.GET("/sessions/:id", handlers.GetSession)
+			optionalAuth.PATCH("/sessions/:id/complete", handlers.CompleteSession)
+			optionalAuth.DELETE("/sessions/:id", handlers.DeleteSession)
+			optionalAuth.GET("/sessions", handlers.GetSessions)
+
+			// Problem routes
+			optionalAuth.POST("/sessions/:id/problems", handlers.SubmitProblem)
+		}
+
+		// Protected routes (authentication required)
+		protected := api.Group("/")
+		protected.Use(middleware.RequireAuth())
+		{
+			// User profile
+			protected.GET("/auth/me", handlers.GetCurrentUser)
+
+			// Settings routes (require authentication)
+			protected.GET("/settings", handlers.GetSettings)
+			protected.PUT("/settings", handlers.UpdateSettings)
+		}
 	}
 
 	// Start server

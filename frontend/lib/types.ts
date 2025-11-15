@@ -51,3 +51,25 @@ export interface MathProblem {
   answer: number;
   operation: 'addition' | 'subtraction' | 'multiplication' | 'division';
 }
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: User;
+}
+
+export interface LeaderboardEntry {
+  rank: number;
+  username: string;
+  score: number;
+  duration: number;
+  started_at: string;
+  is_anonymous: boolean;
+}

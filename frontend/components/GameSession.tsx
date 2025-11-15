@@ -67,7 +67,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
         try {
           // Create session and submit all problems at once
           const isDefault = isUsingDefaultSettings(settings);
-          const response = await api.createSession(undefined, isDefault);
+          const response = await api.createSession(isDefault);
           const sessionId = response.session_id;
 
           // Submit all completed problems
