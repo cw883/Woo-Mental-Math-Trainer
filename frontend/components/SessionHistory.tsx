@@ -100,7 +100,7 @@ export default function SessionHistory() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl text-black">Loading...</div>
       </div>
     );
   }
@@ -115,10 +115,10 @@ export default function SessionHistory() {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Session History</h1>
+      <h1 className="text-3xl font-bold text-black mb-6">Session History</h1>
 
       {sessions.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-black">
           No sessions found. Start playing to see your history!
         </div>
       ) : (
@@ -131,11 +131,11 @@ export default function SessionHistory() {
           {/* Filter and Sort Controls */}
           <div className="mb-6 flex flex-wrap gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Group By</label>
+              <label className="block text-sm font-medium text-black mb-1">Group By</label>
               <select
                 value={groupBy}
                 onChange={(e) => setGroupBy(e.target.value as GroupBy)}
-                className="px-3 py-2 border rounded-md text-gray-900"
+                className="px-3 py-2 border rounded-md text-black"
               >
                 <option value="all">All Sessions</option>
                 <option value="default">Default Settings Only</option>
@@ -143,11 +143,11 @@ export default function SessionHistory() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+              <label className="block text-sm font-medium text-black mb-1">Sort By</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortBy)}
-                className="px-3 py-2 border rounded-md text-gray-900"
+                className="px-3 py-2 border rounded-md text-black"
               >
                 <option value="date_desc">Date (Newest First)</option>
                 <option value="date_asc">Date (Oldest First)</option>
@@ -177,16 +177,16 @@ export default function SessionHistory() {
                       </span>
                     )}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="text-sm text-black">
                     {formatDate(session.started_at)}
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <div className="text-lg font-semibold">
+                    <div className="text-lg font-semibold text-black">
                       {formatDuration(session.duration)}
                     </div>
-                    <div className="text-sm text-gray-500">duration</div>
+                    <div className="text-sm text-black">duration</div>
                   </div>
                   <button
                     onClick={(e) => handleDeleteSession(session.id, e)}
@@ -222,14 +222,14 @@ export default function SessionHistory() {
           >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h2 className="text-2xl font-bold">Session Details</h2>
-                <p className="text-gray-500">
+                <h2 className="text-2xl font-bold text-black">Session Details</h2>
+                <p className="text-black">
                   {formatDate(selectedSession.started_at)}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedSession(null)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
+                className="text-black hover:text-black text-2xl"
               >
                 ×
               </button>
@@ -240,19 +240,19 @@ export default function SessionHistory() {
                 <div className="text-3xl font-bold text-blue-600">
                   {selectedSession.score}
                 </div>
-                <div className="text-sm text-gray-700">Correct Answers</div>
+                <div className="text-sm text-black">Correct Answers</div>
               </div>
               <div className="bg-green-50 p-4 rounded">
                 <div className="text-3xl font-bold text-green-600">
                   {formatDuration(selectedSession.duration)}
                 </div>
-                <div className="text-sm text-gray-700">Duration</div>
+                <div className="text-sm text-black">Duration</div>
               </div>
             </div>
 
             {selectedSession.problems && selectedSession.problems.length > 0 && (
               <div>
-                <h3 className="text-xl font-semibold mb-4">
+                <h3 className="text-xl font-semibold text-black mb-4">
                   Problem Breakdown ({selectedSession.problems.length} problems)
                 </h3>
                 <div className="space-y-2">
@@ -276,7 +276,7 @@ export default function SessionHistory() {
                             </span>
                           )}
                         </div>
-                        <div className="text-right text-sm text-gray-700">
+                        <div className="text-right text-sm text-black">
                           <div>{(problem.time_spent_ms / 1000).toFixed(2)}s</div>
                           {problem.typo_count > 0 && (
                             <div>{problem.typo_count} typos</div>

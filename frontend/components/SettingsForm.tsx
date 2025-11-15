@@ -23,8 +23,8 @@ export default function SettingsForm({ initialSettings, onSave, onCancel }: Sett
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6">Problem Settings</h2>
+    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-black mb-6">Problem Settings</h2>
 
       {/* Addition Settings */}
       <div className="mb-6 p-4 border rounded">
@@ -36,31 +36,51 @@ export default function SettingsForm({ initialSettings, onSave, onCancel }: Sett
             onChange={(e) => updateSetting('addition_enabled', e.target.checked)}
             className="w-5 h-5 mr-3"
           />
-          <label htmlFor="addition_enabled" className="text-lg font-semibold">
+          <label htmlFor="addition_enabled" className="text-lg font-semibold text-black">
             Addition
           </label>
         </div>
         {settings.addition_enabled && (
-          <div className="flex gap-4 ml-8">
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Min</label>
+          <div className="ml-8 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">First Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.addition_min}
-                onChange={(e) => updateSetting('addition_min', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.addition_min1}
+                onChange={(e) => updateSetting('addition_min1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.addition_max1}
+                onChange={(e) => updateSetting('addition_max1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Max</label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">Second Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.addition_max}
-                onChange={(e) => updateSetting('addition_max', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.addition_min2}
+                onChange={(e) => updateSetting('addition_min2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.addition_max2}
+                onChange={(e) => updateSetting('addition_max2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
           </div>
         )}
@@ -76,31 +96,51 @@ export default function SettingsForm({ initialSettings, onSave, onCancel }: Sett
             onChange={(e) => updateSetting('subtraction_enabled', e.target.checked)}
             className="w-5 h-5 mr-3"
           />
-          <label htmlFor="subtraction_enabled" className="text-lg font-semibold">
+          <label htmlFor="subtraction_enabled" className="text-lg font-semibold text-black">
             Subtraction
           </label>
         </div>
         {settings.subtraction_enabled && (
-          <div className="flex gap-4 ml-8">
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Min</label>
+          <div className="ml-8 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">First Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.subtraction_min}
-                onChange={(e) => updateSetting('subtraction_min', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.subtraction_min1}
+                onChange={(e) => updateSetting('subtraction_min1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.subtraction_max1}
+                onChange={(e) => updateSetting('subtraction_max1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Max</label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">Second Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.subtraction_max}
-                onChange={(e) => updateSetting('subtraction_max', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.subtraction_min2}
+                onChange={(e) => updateSetting('subtraction_min2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.subtraction_max2}
+                onChange={(e) => updateSetting('subtraction_max2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
           </div>
         )}
@@ -116,31 +156,51 @@ export default function SettingsForm({ initialSettings, onSave, onCancel }: Sett
             onChange={(e) => updateSetting('multiplication_enabled', e.target.checked)}
             className="w-5 h-5 mr-3"
           />
-          <label htmlFor="multiplication_enabled" className="text-lg font-semibold">
+          <label htmlFor="multiplication_enabled" className="text-lg font-semibold text-black">
             Multiplication
           </label>
         </div>
         {settings.multiplication_enabled && (
-          <div className="flex gap-4 ml-8">
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Min</label>
+          <div className="ml-8 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">First Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.multiplication_min}
-                onChange={(e) => updateSetting('multiplication_min', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.multiplication_min1}
+                onChange={(e) => updateSetting('multiplication_min1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.multiplication_max1}
+                onChange={(e) => updateSetting('multiplication_max1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Max</label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">Second Number:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.multiplication_max}
-                onChange={(e) => updateSetting('multiplication_max', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.multiplication_min2}
+                onChange={(e) => updateSetting('multiplication_min2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="0"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.multiplication_max2}
+                onChange={(e) => updateSetting('multiplication_max2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="0"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
           </div>
         )}
@@ -156,31 +216,51 @@ export default function SettingsForm({ initialSettings, onSave, onCancel }: Sett
             onChange={(e) => updateSetting('division_enabled', e.target.checked)}
             className="w-5 h-5 mr-3"
           />
-          <label htmlFor="division_enabled" className="text-lg font-semibold">
+          <label htmlFor="division_enabled" className="text-lg font-semibold text-black">
             Division
           </label>
         </div>
         {settings.division_enabled && (
-          <div className="flex gap-4 ml-8">
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Min</label>
+          <div className="ml-8 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">Divisor:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.division_min}
-                onChange={(e) => updateSetting('division_min', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.division_min1}
+                onChange={(e) => updateSetting('division_min1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="1"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.division_max1}
+                onChange={(e) => updateSetting('division_max1', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="1"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
-            <div>
-              <label className="block text-sm text-gray-700 mb-1">Max</label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-black w-24">Quotient:</span>
+              <span className="text-sm text-black">(</span>
               <input
                 type="number"
-                value={settings.division_max}
-                onChange={(e) => updateSetting('division_max', parseInt(e.target.value))}
-                className="w-24 px-3 py-2 border rounded text-gray-900"
+                value={settings.division_min2}
+                onChange={(e) => updateSetting('division_min2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
                 min="1"
               />
+              <span className="text-sm text-black">to</span>
+              <input
+                type="number"
+                value={settings.division_max2}
+                onChange={(e) => updateSetting('division_max2', parseInt(e.target.value))}
+                className="w-20 px-2 py-1 border rounded text-black"
+                min="1"
+              />
+              <span className="text-sm text-black">)</span>
             </div>
           </div>
         )}

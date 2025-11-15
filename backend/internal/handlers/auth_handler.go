@@ -133,13 +133,14 @@ func GetCurrentUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// GetLeaderboard returns the top 10 highest scores
+// GetLeaderboard returns the top 10 highest scores for default settings only
 func GetLeaderboard(c *gin.Context) {
 	var sessions []models.Session
 
-	// Query top 10 sessions by score, including user data
+	// Query top 10 sessions by score for default settings only, including user data
 	if err := database.DB.
 		Preload("User").
+		Where("is_default_settings = ?", true).
 		Order("score DESC").
 		Limit(10).
 		Find(&sessions).Error; err != nil {

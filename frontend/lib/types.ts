@@ -2,17 +2,25 @@ export interface Settings {
   id?: number;
   user_id?: number;
   addition_enabled: boolean;
-  addition_min: number;
-  addition_max: number;
+  addition_min1: number;
+  addition_max1: number;
+  addition_min2: number;
+  addition_max2: number;
   subtraction_enabled: boolean;
-  subtraction_min: number;
-  subtraction_max: number;
+  subtraction_min1: number;
+  subtraction_max1: number;
+  subtraction_min2: number;
+  subtraction_max2: number;
   multiplication_enabled: boolean;
-  multiplication_min: number;
-  multiplication_max: number;
+  multiplication_min1: number;
+  multiplication_max1: number;
+  multiplication_min2: number;
+  multiplication_max2: number;
   division_enabled: boolean;
-  division_min: number;
-  division_max: number;
+  division_min1: number;
+  division_max1: number;
+  division_min2: number;
+  division_max2: number;
 }
 
 export interface Problem {

@@ -42,7 +42,7 @@ export default function Auth() {
   if (user) {
     return (
       <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-700">
+        <span className="text-sm text-black">
           Welcome, <span className="font-semibold">{user.username}</span>
         </span>
         <button
@@ -68,12 +68,12 @@ export default function Auth() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold">
+              <h2 className="text-xl font-bold text-black">
                 {isLogin ? 'Login' : 'Create Account'}
               </h2>
               <button
                 onClick={() => setShowAuthModal(false)}
-                className="text-gray-500 hover:text-gray-700 text-xl"
+                className="text-black hover:text-gray-700 text-xl"
               >
                 ×
               </button>
@@ -87,7 +87,7 @@ export default function Auth() {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Username</label>
+                <label className="block text-sm font-medium text-black mb-1">Username</label>
                 <input
                   type="text"
                   value={formData.username}
@@ -101,7 +101,7 @@ export default function Auth() {
 
               {!isLogin && (
                 <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1">Email</label>
+                  <label className="block text-sm font-medium text-black mb-1">Email</label>
                   <input
                     type="email"
                     value={formData.email}
@@ -113,7 +113,7 @@ export default function Auth() {
               )}
 
               <div className="mb-6">
-                <label className="block text-sm font-medium mb-1">Password</label>
+                <label className="block text-sm font-medium text-black mb-1">Password</label>
                 <input
                   type="password"
                   value={formData.password}
@@ -133,7 +133,7 @@ export default function Auth() {
               </button>
             </form>
 
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-center text-sm text-black">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 onClick={() => {
@@ -146,7 +146,7 @@ export default function Auth() {
               </button>
             </div>
 
-            <div className="mt-4 pt-4 border-t text-center text-sm text-gray-600">
+            <div className="mt-4 pt-4 border-t text-center text-sm text-black">
               Or continue as guest - your scores will still appear on the leaderboard!
             </div>
           </div>

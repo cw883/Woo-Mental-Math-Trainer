@@ -78,7 +78,7 @@ export default function Home() {
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   currentView === 'game'
                     ? 'bg-gray-900 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-gray-100'
                 }`}
               >
                 Play
@@ -88,7 +88,7 @@ export default function Home() {
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   currentView === 'leaderboard'
                     ? 'bg-gray-900 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-gray-100'
                 }`}
               >
                 Leaderboard
@@ -98,7 +98,7 @@ export default function Home() {
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   currentView === 'history'
                     ? 'bg-gray-900 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-gray-100'
                 }`}
               >
                 History
@@ -108,7 +108,7 @@ export default function Home() {
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   currentView === 'settings'
                     ? 'bg-gray-900 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-gray-100'
                 }`}
               >
                 Settings
@@ -149,7 +149,7 @@ export default function Home() {
           <div className="bg-white rounded-lg shadow-lg p-12 text-center max-w-md">
             <h2 className="text-3xl font-bold mb-4">Session Complete!</h2>
             <div className="text-7xl font-bold text-blue-600 mb-8">{lastScore}</div>
-            <p className="text-gray-600 mb-8">correct answers</p>
+            <p className="text-black mb-8">correct answers</p>
 
             <div className="flex flex-col gap-4">
               <button

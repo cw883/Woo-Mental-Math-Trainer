@@ -64,7 +64,7 @@ export default function ProgressChart({ sessions }: ProgressChartProps) {
             className={`px-4 py-2 rounded ${
               groupingMode === 'session'
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-gray-200 text-black hover:bg-gray-300'
             }`}
           >
             By Session
@@ -74,7 +74,7 @@ export default function ProgressChart({ sessions }: ProgressChartProps) {
             className={`px-4 py-2 rounded ${
               groupingMode === 'day'
                 ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-gray-200 text-black hover:bg-gray-300'
             }`}
           >
             By Day
@@ -110,8 +110,8 @@ export default function ProgressChart({ sessions }: ProgressChartProps) {
                   <div className="bg-white p-2 border border-gray-300 rounded shadow">
                     <p className="font-semibold">{data.name}</p>
                     <p className="text-blue-600">Score: {data.score}</p>
-                    {data.date && <p className="text-gray-600 text-sm">{data.date}</p>}
-                    {data.sessions && <p className="text-gray-600 text-sm">Sessions: {data.sessions}</p>}
+                    {data.date && <p className="text-black text-sm">{data.date}</p>}
+                    {data.sessions && <p className="text-black text-sm">Sessions: {data.sessions}</p>}
                   </div>
                 );
               }
@@ -131,7 +131,7 @@ export default function ProgressChart({ sessions }: ProgressChartProps) {
         </LineChart>
       </ResponsiveContainer>
 
-      <div className="mt-4 text-sm text-gray-600">
+      <div className="mt-4 text-sm text-black">
         {groupingMode === 'session' ? (
           <p>Showing individual session scores in chronological order</p>
         ) : (

@@ -35,8 +35,8 @@ export class ProblemGenerator {
   }
 
   private generateAddition(): MathProblem {
-    const a = this.randomInt(this.settings.addition_min, this.settings.addition_max);
-    const b = this.randomInt(this.settings.addition_min, this.settings.addition_max);
+    const a = this.randomInt(this.settings.addition_min1, this.settings.addition_max1);
+    const b = this.randomInt(this.settings.addition_min2, this.settings.addition_max2);
     return {
       question: `${a} + ${b}`,
       answer: a + b,
@@ -45,10 +45,10 @@ export class ProblemGenerator {
   }
 
   private generateSubtraction(): MathProblem {
-    // Generate A and B from [2,100], then compute (A+B) - A or (A+B) - B
+    // Generate A and B from their respective ranges, then compute (A+B) - A or (A+B) - B
     // This ensures the answer is never 1 (minimum is 2)
-    const a = this.randomInt(this.settings.subtraction_min, this.settings.subtraction_max);
-    const b = this.randomInt(this.settings.subtraction_min, this.settings.subtraction_max);
+    const a = this.randomInt(this.settings.subtraction_min1, this.settings.subtraction_max1);
+    const b = this.randomInt(this.settings.subtraction_min2, this.settings.subtraction_max2);
     const sum = a + b;
 
     // Randomly choose to subtract either A or B from the sum
@@ -68,9 +68,9 @@ export class ProblemGenerator {
   }
 
   private generateMultiplication(): MathProblem {
-    // One number from [2,12], other from [2,100]
-    const a = this.randomInt(this.settings.multiplication_min, this.settings.multiplication_max);
-    const b = this.randomInt(2, 100);
+    // First number from min1-max1, second from min2-max2
+    const a = this.randomInt(this.settings.multiplication_min1, this.settings.multiplication_max1);
+    const b = this.randomInt(this.settings.multiplication_min2, this.settings.multiplication_max2);
     // Randomly decide the order
     if (Math.random() < 0.5) {
       return {
@@ -88,9 +88,9 @@ export class ProblemGenerator {
   }
 
   private generateDivision(): MathProblem {
-    // Divisor from [2,12], quotient from [2,100]
-    const divisor = this.randomInt(this.settings.division_min, this.settings.division_max);
-    const quotient = this.randomInt(2, 100);
+    // Divisor from min1-max1, quotient from min2-max2
+    const divisor = this.randomInt(this.settings.division_min1, this.settings.division_max1);
+    const quotient = this.randomInt(this.settings.division_min2, this.settings.division_max2);
     const dividend = divisor * quotient;
     return {
       question: `${dividend} ÷ ${divisor}`,
@@ -106,32 +106,48 @@ export class ProblemGenerator {
 
 export const DEFAULT_SETTINGS: Settings = {
   addition_enabled: true,
-  addition_min: 2,
-  addition_max: 100,
+  addition_min1: 2,
+  addition_max1: 100,
+  addition_min2: 2,
+  addition_max2: 100,
   subtraction_enabled: true,
-  subtraction_min: 2,
-  subtraction_max: 100,
+  subtraction_min1: 2,
+  subtraction_max1: 100,
+  subtraction_min2: 2,
+  subtraction_max2: 100,
   multiplication_enabled: true,
-  multiplication_min: 2,
-  multiplication_max: 12,
+  multiplication_min1: 2,
+  multiplication_max1: 12,
+  multiplication_min2: 2,
+  multiplication_max2: 100,
   division_enabled: true,
-  division_min: 2,
-  division_max: 12,
+  division_min1: 2,
+  division_max1: 12,
+  division_min2: 2,
+  division_max2: 100,
 };
 
 export function isUsingDefaultSettings(settings: Settings): boolean {
   return (
     settings.addition_enabled === DEFAULT_SETTINGS.addition_enabled &&
-    settings.addition_min === DEFAULT_SETTINGS.addition_min &&
-    settings.addition_max === DEFAULT_SETTINGS.addition_max &&
+    settings.addition_min1 === DEFAULT_SETTINGS.addition_min1 &&
+    settings.addition_max1 === DEFAULT_SETTINGS.addition_max1 &&
+    settings.addition_min2 === DEFAULT_SETTINGS.addition_min2 &&
+    settings.addition_max2 === DEFAULT_SETTINGS.addition_max2 &&
     settings.subtraction_enabled === DEFAULT_SETTINGS.subtraction_enabled &&
-    settings.subtraction_min === DEFAULT_SETTINGS.subtraction_min &&
-    settings.subtraction_max === DEFAULT_SETTINGS.subtraction_max &&
+    settings.subtraction_min1 === DEFAULT_SETTINGS.subtraction_min1 &&
+    settings.subtraction_max1 === DEFAULT_SETTINGS.subtraction_max1 &&
+    settings.subtraction_min2 === DEFAULT_SETTINGS.subtraction_min2 &&
+    settings.subtraction_max2 === DEFAULT_SETTINGS.subtraction_max2 &&
     settings.multiplication_enabled === DEFAULT_SETTINGS.multiplication_enabled &&
-    settings.multiplication_min === DEFAULT_SETTINGS.multiplication_min &&
-    settings.multiplication_max === DEFAULT_SETTINGS.multiplication_max &&
+    settings.multiplication_min1 === DEFAULT_SETTINGS.multiplication_min1 &&
+    settings.multiplication_max1 === DEFAULT_SETTINGS.multiplication_max1 &&
+    settings.multiplication_min2 === DEFAULT_SETTINGS.multiplication_min2 &&
+    settings.multiplication_max2 === DEFAULT_SETTINGS.multiplication_max2 &&
     settings.division_enabled === DEFAULT_SETTINGS.division_enabled &&
-    settings.division_min === DEFAULT_SETTINGS.division_min &&
-    settings.division_max === DEFAULT_SETTINGS.division_max
+    settings.division_min1 === DEFAULT_SETTINGS.division_min1 &&
+    settings.division_max1 === DEFAULT_SETTINGS.division_max1 &&
+    settings.division_min2 === DEFAULT_SETTINGS.division_min2 &&
+    settings.division_max2 === DEFAULT_SETTINGS.division_max2
   );
 }

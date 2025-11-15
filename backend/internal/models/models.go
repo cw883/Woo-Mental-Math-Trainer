@@ -59,23 +59,31 @@ type Settings struct {
 
 	// Addition settings
 	AdditionEnabled bool `json:"addition_enabled" gorm:"default:true"`
-	AdditionMin     int  `json:"addition_min" gorm:"default:1"`
-	AdditionMax     int  `json:"addition_max" gorm:"default:99"`
+	AdditionMin1    int  `json:"addition_min1" gorm:"default:2;column:addition_min1"`
+	AdditionMax1    int  `json:"addition_max1" gorm:"default:100;column:addition_max1"`
+	AdditionMin2    int  `json:"addition_min2" gorm:"default:2;column:addition_min2"`
+	AdditionMax2    int  `json:"addition_max2" gorm:"default:100;column:addition_max2"`
 
 	// Subtraction settings
 	SubtractionEnabled bool `json:"subtraction_enabled" gorm:"default:true"`
-	SubtractionMin     int  `json:"subtraction_min" gorm:"default:1"`
-	SubtractionMax     int  `json:"subtraction_max" gorm:"default:99"`
+	SubtractionMin1    int  `json:"subtraction_min1" gorm:"default:2;column:subtraction_min1"`
+	SubtractionMax1    int  `json:"subtraction_max1" gorm:"default:100;column:subtraction_max1"`
+	SubtractionMin2    int  `json:"subtraction_min2" gorm:"default:2;column:subtraction_min2"`
+	SubtractionMax2    int  `json:"subtraction_max2" gorm:"default:100;column:subtraction_max2"`
 
 	// Multiplication settings
 	MultiplicationEnabled bool `json:"multiplication_enabled" gorm:"default:true"`
-	MultiplicationMin     int  `json:"multiplication_min" gorm:"default:1"`
-	MultiplicationMax     int  `json:"multiplication_max" gorm:"default:12"`
+	MultiplicationMin1    int  `json:"multiplication_min1" gorm:"default:2;column:multiplication_min1"`
+	MultiplicationMax1    int  `json:"multiplication_max1" gorm:"default:12;column:multiplication_max1"`
+	MultiplicationMin2    int  `json:"multiplication_min2" gorm:"default:2;column:multiplication_min2"`
+	MultiplicationMax2    int  `json:"multiplication_max2" gorm:"default:100;column:multiplication_max2"`
 
 	// Division settings
 	DivisionEnabled bool `json:"division_enabled" gorm:"default:false"`
-	DivisionMin     int  `json:"division_min" gorm:"default:1"`
-	DivisionMax     int  `json:"division_max" gorm:"default:12"`
+	DivisionMin1    int  `json:"division_min1" gorm:"default:2;column:division_min1"`
+	DivisionMax1    int  `json:"division_max1" gorm:"default:12;column:division_max1"`
+	DivisionMin2    int  `json:"division_min2" gorm:"default:2;column:division_min2"`
+	DivisionMax2    int  `json:"division_max2" gorm:"default:100;column:division_max2"`
 }
 
 // CreateSessionRequest represents the request to create a new session

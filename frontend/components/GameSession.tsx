@@ -153,18 +153,18 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
       {/* Header with score and timer */}
       <div className="absolute top-8 right-8 text-right">
-        <div className="text-4xl font-bold text-gray-800">{score}</div>
-        <div className="text-sm text-gray-500">correct</div>
+        <div className="text-4xl font-bold text-black">{score}</div>
+        <div className="text-sm text-black">correct</div>
       </div>
 
       <div className="absolute top-8 left-8">
-        <div className="text-4xl font-bold text-gray-800">{timeRemaining}</div>
-        <div className="text-sm text-gray-500">seconds</div>
+        <div className="text-4xl font-bold text-black">{timeRemaining}</div>
+        <div className="text-sm text-black">seconds</div>
       </div>
 
       {/* Main problem display */}
       <div className="text-center">
-        <div className="text-7xl font-bold mb-8 text-gray-900">
+        <div className="text-7xl font-bold mb-8 text-black">
           {currentProblem.question}
         </div>
 
@@ -174,7 +174,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
             type="text"
             value={userInput}
             onChange={handleInputChange}
-            className="text-5xl text-center text-gray-900 border-b-4 border-gray-300 focus:border-blue-500 outline-none w-64 bg-transparent"
+            className="text-5xl text-center text-black border-b-4 border-gray-300 focus:border-blue-500 outline-none w-64 bg-transparent"
             autoFocus
             disabled={!isSessionActive}
             inputMode="numeric"
@@ -183,14 +183,14 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
         </form>
 
         {!isSessionActive && (
-          <div className="mt-8 text-xl text-gray-600">
+          <div className="mt-8 text-xl text-black">
             Session ended! Final score: {score}
           </div>
         )}
       </div>
 
       {/* Instructions */}
-      <div className="absolute bottom-8 text-center text-gray-500 text-sm">
+      <div className="absolute bottom-8 text-center text-black text-sm">
         <p>Type your answer and press Enter</p>
         <p className="mt-2">Press F5 to start a new session</p>
       </div>

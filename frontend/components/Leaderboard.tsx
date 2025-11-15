@@ -28,7 +28,7 @@ export default function Leaderboard() {
     return (
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
-        <div className="text-center text-gray-500">Loading...</div>
+        <div className="text-center text-black">Loading...</div>
       </div>
     );
   }
@@ -44,10 +44,10 @@ export default function Leaderboard() {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-bold mb-4">🏆 Top 10 Scores</h2>
+      <h2 className="text-xl font-bold text-black mb-4">🏆 Top 10 Scores</h2>
 
       {entries.length === 0 ? (
-        <div className="text-center text-gray-500 py-8">
+        <div className="text-center text-black py-8">
           No scores yet. Be the first to set a record!
         </div>
       ) : (
@@ -72,13 +72,13 @@ export default function Leaderboard() {
                    entry.rank}
                 </div>
                 <div>
-                  <div className="font-semibold">
+                  <div className="font-semibold text-black">
                     {entry.username}
                     {entry.is_anonymous && (
                       <span className="ml-2 text-xs bg-gray-200 px-2 py-1 rounded">Guest</span>
                     )}
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-black">
                     {new Date(entry.started_at).toLocaleDateString()} at{' '}
                     {new Date(entry.started_at).toLocaleTimeString([], {
                       hour: '2-digit',
@@ -89,14 +89,14 @@ export default function Leaderboard() {
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-blue-600">{entry.score}</div>
-                <div className="text-sm text-gray-600">{entry.duration}s</div>
+                <div className="text-sm text-black">{entry.duration}s</div>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      <div className="mt-6 pt-4 border-t text-sm text-gray-600 text-center">
+      <div className="mt-6 pt-4 border-t text-sm text-black text-center">
         Play as a guest or login to claim your spot!
       </div>
     </div>
