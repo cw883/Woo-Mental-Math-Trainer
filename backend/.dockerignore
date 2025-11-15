@@ -1,0 +1,10 @@
+.env
+.env.local
+.git
+.gitignore
+*.md
+Dockerfile
+.dockerignore
+fly.toml
+*.log
+.DS_Store

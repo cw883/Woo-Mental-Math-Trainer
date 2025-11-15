@@ -1,0 +1,38 @@
+# fly.toml app configuration file generated for mental-math-trainer
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "mental-math-trainer-backend" # Change this to your app name
+primary_region = "sjc" # Change to your preferred region
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+  DB_SSLMODE = "require"
+  # ALLOWED_ORIGINS will be set in secrets after deployment
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 1000
+    soft_limit = 850
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    timeout = "5s"
+    path = "/health"
+
+[[vm]]
+  memory = "256"
+  cpu_kind = "shared"
+  cpus = 1

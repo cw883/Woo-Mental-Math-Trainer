@@ -21,6 +21,12 @@ func Load() {
 	setDefault("DB_HOST", "localhost")
 	setDefault("DB_PORT", "5432")
 	setDefault("DB_SSLMODE", "disable")
+
+	// Check for required JWT_SECRET in production
+	if os.Getenv("JWT_SECRET") == "" {
+		log.Println("Warning: JWT_SECRET not set, using default (INSECURE for production)")
+		setDefault("JWT_SECRET", "default-secret-change-in-production")
+	}
 }
 
 func setDefault(key, value string) {

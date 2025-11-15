@@ -17,28 +17,33 @@ var DB *gorm.DB
 func Connect() error {
 	var err error
 
-	// Build DSN, omitting password if empty
-	password := os.Getenv("DB_PASSWORD")
-	var dsn string
-	if password == "" {
-		dsn = fmt.Sprintf(
-			"host=%s user=%s dbname=%s port=%s sslmode=%s",
-			os.Getenv("DB_HOST"),
-			os.Getenv("DB_USER"),
-			os.Getenv("DB_NAME"),
-			os.Getenv("DB_PORT"),
-			os.Getenv("DB_SSLMODE"),
-		)
-	} else {
-		dsn = fmt.Sprintf(
-			"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
-			os.Getenv("DB_HOST"),
-			os.Getenv("DB_USER"),
-			password,
-			os.Getenv("DB_NAME"),
-			os.Getenv("DB_PORT"),
-			os.Getenv("DB_SSLMODE"),
-		)
+	// Check for DATABASE_URL first (used by many cloud providers)
+	dsn := os.Getenv("DATABASE_URL")
+
+	// If DATABASE_URL is not set, build DSN from individual parameters
+	if dsn == "" {
+		// Build DSN, omitting password if empty
+		password := os.Getenv("DB_PASSWORD")
+		if password == "" {
+			dsn = fmt.Sprintf(
+				"host=%s user=%s dbname=%s port=%s sslmode=%s",
+				os.Getenv("DB_HOST"),
+				os.Getenv("DB_USER"),
+				os.Getenv("DB_NAME"),
+				os.Getenv("DB_PORT"),
+				os.Getenv("DB_SSLMODE"),
+			)
+		} else {
+			dsn = fmt.Sprintf(
+				"host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
+				os.Getenv("DB_HOST"),
+				os.Getenv("DB_USER"),
+				password,
+				os.Getenv("DB_NAME"),
+				os.Getenv("DB_PORT"),
+				os.Getenv("DB_SSLMODE"),
+			)
+		}
 	}
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
