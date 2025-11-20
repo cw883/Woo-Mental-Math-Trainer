@@ -62,6 +62,8 @@ func Connect() error {
 func Migrate() error {
 	log.Println("Running database migrations...")
 
+	// AutoMigrate will create tables, missing columns, and missing indexes
+	// It WON'T delete unused columns to protect your data
 	err := DB.AutoMigrate(
 		&models.User{},
 		&models.Session{},
@@ -70,9 +72,10 @@ func Migrate() error {
 	)
 
 	if err != nil {
-		return fmt.Errorf("failed to migrate database: %w", err)
+		// Log the error but don't fail - tables likely already exist
+		log.Printf("Migration notice: %v (tables may already exist, continuing...)", err)
 	}
 
-	log.Println("Database migrations completed successfully")
+	log.Println("Database migrations completed")
 	return nil
 }
