@@ -34,6 +34,11 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
   const completedProblemsRef = useRef<LocalProblem[]>([]);  // Store problems locally
   const sessionStartTimeRef = useRef(Date.now());  // Track actual start time
 
+  // Keep scoreRef synchronized with score state
+  useEffect(() => {
+    scoreRef.current = score;
+  }, [score]);
+
   // Initialize first problem only (don't create session yet)
   useEffect(() => {
     const problem = generatorRef.current.generateProblem();
@@ -62,7 +67,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
 
   // Handle session end when timer reaches 0
   useEffect(() => {
-    if (timeRemaining === 0 && scoreRef.current > 0) {
+    if (timeRemaining === 0 && isSessionActive) {
       const endSession = async () => {
         try {
           // Create session and submit all problems at once
@@ -114,11 +119,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
         });
 
         // Increment score and move to next problem
-        setScore((prev) => {
-          const newScore = prev + 1;
-          scoreRef.current = newScore;
-          return newScore;
-        });
+        setScore((prev) => prev + 1);
 
         // Generate new problem
         const nextProblem = generatorRef.current.generateProblem();
