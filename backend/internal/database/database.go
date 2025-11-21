@@ -46,7 +46,13 @@ func Connect() error {
 		}
 	}
 
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+	// Add pgx config for Supabase pooler compatibility
+	config := postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true, // Disable prepared statements for pooler
+	}
+
+	DB, err = gorm.Open(postgres.New(config), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
