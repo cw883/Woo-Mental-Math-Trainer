@@ -133,18 +133,18 @@ func DeleteSession(c *gin.Context) {
 
 // GetSessions retrieves all sessions, optionally filtered by user_id
 func GetSessions(c *gin.Context) {
-	userID := c.Query("user_id")
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
 	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "20"))
 	offset := (page - 1) * limit
 
 	query := database.DB.Model(&models.Session{})
 
-	// Filter by user_id if provided
-	if userID != "" {
-		query = query.Where("user_id = ?", userID)
+	// Check if user is authenticated from context (set by auth middleware)
+	if userID, exists := c.Get("user_id"); exists {
+		// User is authenticated, get their sessions
+		query = query.Where("user_id = ?", userID.(uint))
 	} else {
-		// For anonymous users, get sessions without user_id
+		// User is not authenticated, get anonymous sessions
 		query = query.Where("user_id IS NULL")
 	}
 

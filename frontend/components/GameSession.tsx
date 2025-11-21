@@ -68,20 +68,26 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
   // Handle session end when timer reaches 0
   useEffect(() => {
     if (timeRemaining === 0 && isSessionActive) {
+      setIsSessionActive(false); // Prevent double submission
       const endSession = async () => {
         try {
           // Create session and submit all problems at once
           const isDefault = isUsingDefaultSettings(settings);
+          console.log('Creating session with isDefaultSettings:', isDefault);
           const response = await api.createSession(isDefault);
           const sessionId = response.session_id;
+          console.log('Session created with ID:', sessionId);
 
           // Submit all completed problems
+          console.log(`Submitting ${completedProblemsRef.current.length} problems...`);
           for (const problem of completedProblemsRef.current) {
             await api.submitProblem(sessionId, problem);
           }
 
           // Complete the session
+          console.log('Completing session with score:', scoreRef.current);
           await api.completeSession(sessionId, scoreRef.current);
+          console.log('Session completed successfully');
           onComplete(sessionId, scoreRef.current);
         } catch (error) {
           console.error('Failed to complete session:', error);
@@ -89,7 +95,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
       };
       endSession();
     }
-  }, [timeRemaining, onComplete]);
+  }, [timeRemaining, isSessionActive, onComplete, settings]);
 
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -117,6 +123,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
           time_spent_ms: timeSpentMs,
           typo_count: typoCount,
         });
+        console.log(`Problem answered correctly! Total problems: ${completedProblemsRef.current.length}`);
 
         // Increment score and move to next problem
         setScore((prev) => prev + 1);
