@@ -108,12 +108,12 @@ See [backend/README.md](backend/README.md) for detailed API documentation.
 
 ## Deployment
 
-The application is currently deployed using:
+The application is deployed at: https://woo-mental-math-trainer.vercel.app/
+
+**Stack:**
 - **Frontend**: Vercel
 - **Backend**: Fly.io
 - **Database**: Supabase PostgreSQL
-
-For detailed deployment instructions, see [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md).
 
 ## Development Status
 
