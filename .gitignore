@@ -49,3 +49,7 @@ yarn-error.log*
 .vscode/
 *.swp
 *.swo
+
+# Database scripts (may contain credentials)
+view_database.sh
+*.sql

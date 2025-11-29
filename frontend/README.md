@@ -1,13 +1,15 @@
 # Mental Math Trainer - Frontend
 
-Next.js frontend for the Mental Math Trainer application.
+Next.js frontend for the Mental Math Trainer application with user authentication, real-time leaderboards, and detailed analytics.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
-- **Styling**: TailwindCSS
-- **State Management**: React Hooks
+- **UI Library**: React 19
+- **Styling**: TailwindCSS 4
+- **Charts**: Recharts
+- **State Management**: React Hooks + Context API
 
 ## Project Structure
 
@@ -18,9 +20,14 @@ frontend/
 │   ├── layout.tsx         # Root layout
 │   └── globals.css        # Global styles
 ├── components/
+│   ├── Auth.tsx           # Authentication (login/signup)
 │   ├── GameSession.tsx    # Main game component
-│   ├── SettingsForm.tsx   # Settings configuration
-│   └── SessionHistory.tsx # Session history viewer
+│   ├── Leaderboard.tsx    # Top scores leaderboard
+│   ├── ProgressChart.tsx  # Performance analytics charts
+│   ├── SessionHistory.tsx # Session history viewer
+│   └── SettingsForm.tsx   # Settings configuration
+├── contexts/
+│   └── AuthContext.tsx    # User authentication state
 ├── lib/
 │   ├── api.ts            # API client for backend
 │   ├── types.ts          # TypeScript interfaces
@@ -30,6 +37,12 @@ frontend/
 
 ## Features
 
+### Auth Component
+- User registration with username and password
+- Secure login with JWT authentication
+- Persistent authentication state
+- User profile display
+
 ### GameSession Component
 - Displays random math problems based on settings
 - Tracks time spent per problem
@@ -37,17 +50,31 @@ frontend/
 - Auto-advances on correct answer
 - 120-second countdown timer
 - Real-time score tracking
+- Session persistence to backend
+
+### Leaderboard Component
+- View top 10 scores across all users
+- Real-time ranking updates
+- User highlighting
+- Score and accuracy display
+
+### ProgressChart Component
+- Interactive charts using Recharts
+- Score progression over time
+- Accuracy trends
+- Session performance visualization
 
 ### SettingsForm Component
 - Configure operation types (add, subtract, multiply, divide)
 - Set min/max ranges for each operation
-- Persists settings to backend
+- Persists settings to user account
 
 ### SessionHistory Component
-- View all past sessions
+- View all past sessions with pagination
 - Click to see detailed problem breakdown
 - Shows time spent and typos per problem
 - Displays correct/incorrect answers
+- Filter and sort options
 
 ## Getting Started
 
@@ -200,13 +227,21 @@ rm -rf .next
 npm run dev
 ```
 
+## Implemented Features
+
+- ✅ User authentication with JWT
+- ✅ Interactive charts for progress tracking
+- ✅ Leaderboard system
+- ✅ Session history and analytics
+- ✅ Persistent settings
+
 ## Future Enhancements
 
-- [ ] Add user authentication
-- [ ] Implement charts for progress tracking
-- [ ] Add keyboard shortcuts
+- [ ] Keyboard shortcuts customization
 - [ ] Mobile-optimized interface
 - [ ] PWA support for offline play
 - [ ] Sound effects and animations
 - [ ] Multiplayer mode
-- [ ] Customizable themes
+- [ ] Dark mode
+- [ ] Achievement system
+- [ ] Social features (friends, challenges)

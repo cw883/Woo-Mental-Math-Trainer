@@ -41,18 +41,24 @@ The server will start on `http://localhost:8080`
 
 ## API Endpoints
 
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive JWT token
+- `GET /api/auth/me` - Get current user info (requires auth)
+
 ### Sessions
-- `POST /api/sessions` - Create a new session
-- `GET /api/sessions/:id` - Get session details with problems
-- `PATCH /api/sessions/:id/complete` - Complete a session
-- `GET /api/sessions` - Get all sessions (with pagination)
+- `POST /api/sessions` - Create a new session (requires auth)
+- `GET /api/sessions/:id` - Get session details with problems (requires auth)
+- `PATCH /api/sessions/:id/complete` - Complete a session (requires auth)
+- `GET /api/sessions` - Get all user sessions with pagination (requires auth)
+- `GET /api/leaderboard` - Get top scores leaderboard
 
 ### Problems
-- `POST /api/sessions/:id/problems` - Submit a problem answer
+- `POST /api/sessions/:id/problems` - Submit a problem answer (requires auth)
 
 ### Settings
-- `GET /api/settings` - Get user settings
-- `PUT /api/settings` - Update user settings
+- `GET /api/settings` - Get user settings (requires auth)
+- `PUT /api/settings` - Update user settings (requires auth)
 
 ### Health Check
 - `GET /health` - Check server status

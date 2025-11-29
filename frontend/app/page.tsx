@@ -159,16 +159,22 @@ export default function Home() {
                 Play Again
               </button>
               <button
-                onClick={() => setCurrentView('settings')}
+                onClick={() => setCurrentView('leaderboard')}
                 className="px-8 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
               >
-                Edit Settings
+                View Leaderboard
               </button>
               <button
                 onClick={() => setCurrentView('history')}
                 className="px-8 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
               >
                 View History
+              </button>
+              <button
+                onClick={() => setCurrentView('settings')}
+                className="px-8 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Edit Settings
               </button>
             </div>
           </div>

@@ -1,31 +1,44 @@
 # Mental Math Trainer
-https://woo-mental-math-trainer.vercel.app/
 
+**Live Demo**: https://woo-mental-math-trainer.vercel.app/
 
-A full-stack mental math training application inspired by Zetamac, with enhanced analytics and progress tracking.
+A full-stack mental math training application inspired by Zetamac, featuring user authentication, real-time leaderboards, and detailed analytics.
 
 ## Features
 
+### Core Gameplay
 - **Customizable problem sets**: Configure ranges for addition, subtraction, multiplication, and division
-- **Timed sessions**: 120-second practice sessions
+- **Timed sessions**: 120-second practice sessions with countdown timer
 - **Auto-advancing**: Instantly move to the next problem on correct answer
-- **Detailed analytics**: Track time spent and typos per problem
-- **Session history**: View past sessions and drill down into individual problems
-- **Instant restart**: Refresh the page to immediately start a new session
+- **Instant restart**: Quick session restart functionality
+
+### Analytics & Tracking
+- **Detailed problem analytics**: Track time spent and typos per problem
+- **Session history**: View all past sessions with complete problem breakdowns
+- **Progress charts**: Visualize your improvement over time with interactive graphs
+- **Performance metrics**: Track accuracy, speed, and consistency
+
+### User Features
+- **User authentication**: Secure signup/login with JWT authentication
+- **Leaderboards**: Compete with others and view top scores
+- **Personal profile**: Track your progress and statistics
+- **Settings persistence**: Your preferences are saved to your account
 
 ## Tech Stack
 
 ### Frontend
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
-- **Styling**: TailwindCSS
-- **State Management**: React Hooks / Zustand
+- **Styling**: TailwindCSS 4
+- **Charts**: Recharts
+- **State Management**: React Hooks + Context API
 
 ### Backend
 - **Language**: Go 1.21+
 - **Framework**: Gin
 - **ORM**: GORM
-- **Database**: PostgreSQL
+- **Authentication**: JWT tokens
+- **Database**: PostgreSQL (Supabase in production)
 
 ## Project Structure
 
@@ -89,37 +102,36 @@ The backend will be available at `http://localhost:8080`
 
 The frontend will be available at `http://localhost:3000`
 
-## Deployment Recommendations
-
-### Option 1: Managed Services (Easiest)
-- **Frontend**: Vercel
-- **Backend**: Fly.io or Railway
-- **Database**: Railway PostgreSQL or Supabase
-- **Cost**: ~$10-20/month
-
-### Option 2: Cloud Platform
-- **Frontend**: Vercel or AWS Amplify
-- **Backend**: Google Cloud Run or AWS App Runner
-- **Database**: AWS RDS or Google Cloud SQL
-- **Cost**: ~$30-50/month
-
-### Option 3: VPS
-- **Platform**: DigitalOcean or Linode
-- **Setup**: Docker Compose with all services
-- **Cost**: $12-24/month
-
 ## API Documentation
 
 See [backend/README.md](backend/README.md) for detailed API documentation.
 
-## Development Roadmap
+## Deployment
 
-- [ ] Phase 1: Core functionality (in progress)
-- [ ] Phase 2: User authentication
-- [ ] Phase 3: Advanced analytics & charts
-- [ ] Phase 4: Leaderboards
-- [ ] Phase 5: Mobile responsiveness
-- [ ] Phase 6: PWA support
+The application is currently deployed using:
+- **Frontend**: Vercel
+- **Backend**: Fly.io
+- **Database**: Supabase PostgreSQL
+
+For detailed deployment instructions, see [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md).
+
+## Development Status
+
+### Completed Features
+- ✅ Core game functionality with timed sessions
+- ✅ User authentication and authorization
+- ✅ Advanced analytics with interactive charts
+- ✅ Leaderboard system
+- ✅ Session history and problem tracking
+- ✅ Settings management and persistence
+
+### Future Enhancements
+- [ ] Mobile app (React Native or PWA)
+- [ ] Social features (friends, challenges)
+- [ ] Custom game modes
+- [ ] Achievement system
+- [ ] Dark mode
+- [ ] Keyboard shortcuts customization
 
 ## License
 

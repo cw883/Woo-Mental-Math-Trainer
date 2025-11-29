@@ -91,6 +91,14 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
           onComplete(sessionId, scoreRef.current);
         } catch (error) {
           console.error('Failed to complete session:', error);
+          console.error('Error details:', {
+            error: error,
+            message: error instanceof Error ? error.message : 'Unknown error',
+            problems: completedProblemsRef.current.length,
+            score: scoreRef.current
+          });
+          // Still call onComplete even if there's an error so the UI updates
+          onComplete(0, scoreRef.current);
         }
       };
       endSession();

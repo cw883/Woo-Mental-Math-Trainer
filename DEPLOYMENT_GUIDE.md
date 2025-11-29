@@ -50,10 +50,12 @@ fly launch --no-deploy
 3. Set your secrets (environment variables):
 ```bash
 # Set the database URL from Supabase
-fly secrets set DATABASE_URL='postgresql://postgres.chryinichqgyckzmgqxu:Buddythedog3583@aws-1-us-east-1.pooler.supabase.com:6543/postgres'
+# Replace with your actual Supabase connection string from Settings → Database
+fly secrets set DATABASE_URL='postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres'
 
-# Set JWT secret for authentication
-fly secrets set JWT_SECRET="3sO9UZGghtHqh2hLSoxs23n/Fq17gbB5kpu/t5ihMVo="
+# Set JWT secret for authentication (generate a random secret)
+# You can generate one with: openssl rand -base64 32
+fly secrets set JWT_SECRET="your-randomly-generated-secret-key"
 
 # Set allowed origins (your Vercel frontend URL)
 # You'll update this after deploying the frontend
@@ -98,10 +100,11 @@ vercel --prod
 
 ## Step 4: Update CORS Settings
 
-After deploying the frontend, update your backend's ALLOWED_ORIGINS:
+After deploying the frontend, update your backend's ALLOWED_ORIGINS with your actual Vercel URLs:
 
 ```bash
-fly secrets set ALLOWED_ORIGINS="https://your-frontend.vercel.app,https://your-frontend-git-main.vercel.app"
+# Replace with your actual Vercel URLs (you may have multiple preview URLs)
+fly secrets set ALLOWED_ORIGINS="https://your-app.vercel.app,https://your-app-git-main-username.vercel.app"
 ```
 
 ## Step 5: Verify Deployment
