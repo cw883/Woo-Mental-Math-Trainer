@@ -20,10 +20,13 @@ export default function Home() {
   const [lastScore, setLastScore] = useState<number>(0);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load settings on mount
+  // Load settings on mount and when user changes (login/logout)
   useEffect(() => {
-    loadSettings();
-  }, []);
+    // Wait for auth check to complete before loading settings
+    if (!userLoading) {
+      loadSettings();
+    }
+  }, [user, userLoading]);
 
   const loadSettings = async () => {
     try {

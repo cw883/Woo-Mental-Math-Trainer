@@ -10,16 +10,16 @@ import (
 
 // GetSettings retrieves settings for a user (or default settings for anonymous)
 func GetSettings(c *gin.Context) {
-	userID := c.Query("user_id")
-
-	if userID == "" {
+	// Get user_id from auth context (set by RequireAuth middleware)
+	userID, exists := c.Get("user_id")
+	if !exists {
 		// Return default settings for anonymous users
 		c.JSON(http.StatusOK, getDefaultSettings())
 		return
 	}
 
 	var settings models.Settings
-	if err := database.DB.Where("user_id = ?", userID).First(&settings).Error; err != nil {
+	if err := database.DB.Where("user_id = ?", userID.(uint)).First(&settings).Error; err != nil {
 		// If no settings found, return defaults
 		c.JSON(http.StatusOK, getDefaultSettings())
 		return
@@ -30,11 +30,21 @@ func GetSettings(c *gin.Context) {
 
 // UpdateSettings updates or creates settings for a user
 func UpdateSettings(c *gin.Context) {
+	// Get user_id from auth context (set by RequireAuth middleware)
+	userID, exists := c.Get("user_id")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Not authenticated"})
+		return
+	}
+
 	var settings models.Settings
 	if err := c.ShouldBindJSON(&settings); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+	// Set user_id from auth context (not from request body)
+	settings.UserID = userID.(uint)
 
 	// Check if settings exist
 	var existing models.Settings

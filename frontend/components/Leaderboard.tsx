@@ -15,9 +15,12 @@ export default function Leaderboard() {
 
   const fetchLeaderboard = async () => {
     try {
+      setIsLoading(true);
+      setError('');
       const data = await api.getLeaderboard();
-      setEntries(data);
+      setEntries(data || []);
     } catch (err) {
+      console.error('Leaderboard fetch error:', err);
       setError('Failed to load leaderboard');
     } finally {
       setIsLoading(false);
@@ -44,7 +47,16 @@ export default function Leaderboard() {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-bold text-black mb-4">🏆 Top 10 Scores</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold text-black">🏆 Top 10 Scores</h2>
+        <button
+          onClick={fetchLeaderboard}
+          disabled={isLoading}
+          className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-md text-black disabled:opacity-50"
+        >
+          Refresh
+        </button>
+      </div>
 
       {entries.length === 0 ? (
         <div className="text-center text-black py-8">
