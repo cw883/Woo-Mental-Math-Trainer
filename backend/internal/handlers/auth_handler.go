@@ -138,9 +138,11 @@ func GetLeaderboard(c *gin.Context) {
 	var sessions []models.Session
 
 	// Query top 10 sessions by score for default settings only, including user data
+	// Only include completed sessions (ended_at IS NOT NULL)
 	if err := database.DB.
 		Preload("User").
 		Where("is_default_settings = ?", true).
+		Where("ended_at IS NOT NULL").
 		Order("score DESC").
 		Limit(10).
 		Find(&sessions).Error; err != nil {
