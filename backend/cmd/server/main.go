@@ -59,6 +59,9 @@ func main() {
 
 			// Problem routes
 			optionalAuth.POST("/sessions/:id/problems", handlers.SubmitProblem)
+
+			// Settings GET - works for both anonymous (returns defaults) and authenticated users
+			optionalAuth.GET("/settings", handlers.GetSettings)
 		}
 
 		// Protected routes (authentication required)
@@ -68,8 +71,7 @@ func main() {
 			// User profile
 			protected.GET("/auth/me", handlers.GetCurrentUser)
 
-			// Settings routes (require authentication)
-			protected.GET("/settings", handlers.GetSettings)
+			// Settings PUT - requires authentication to save settings
 			protected.PUT("/settings", handlers.UpdateSettings)
 		}
 	}
