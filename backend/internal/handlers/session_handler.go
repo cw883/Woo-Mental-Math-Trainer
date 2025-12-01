@@ -16,9 +16,14 @@ import (
 func CreateSession(c *gin.Context) {
 	var req models.CreateSessionRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		// If no body provided, use defaults
-		req.IsDefaultSettings = false
+		// Log the error for debugging, but don't fail - just use defaults
+		fmt.Printf("Warning: Failed to bind JSON for CreateSession: %v\n", err)
+		// Default to true for is_default_settings since most users use defaults
+		req.IsDefaultSettings = true
 	}
+
+	// Log the request for debugging
+	fmt.Printf("CreateSession: is_default_settings=%v\n", req.IsDefaultSettings)
 
 	session := models.Session{
 		Score:             0,
@@ -108,6 +113,10 @@ func CompleteSession(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update session"})
 		return
 	}
+
+	// Log session completion for debugging
+	fmt.Printf("Session completed: id=%d, score=%d, is_default_settings=%v, user_id=%v\n",
+		session.ID, session.Score, session.IsDefaultSettings, session.UserID)
 
 	c.JSON(http.StatusOK, session)
 }
