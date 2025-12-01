@@ -47,6 +47,9 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
     inputRef.current?.focus();
   }, []);
 
+  // Track if we've already started ending the session to prevent double submission
+  const isEndingSessionRef = useRef(false);
+
   // Timer countdown using real time
   useEffect(() => {
     if (!isSessionActive) return;
@@ -54,12 +57,7 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
     const timer = setInterval(() => {
       const elapsed = Math.floor((Date.now() - sessionStartTimeRef.current) / 1000);
       const remaining = Math.max(0, 120 - elapsed);
-
       setTimeRemaining(remaining);
-
-      if (remaining === 0) {
-        setIsSessionActive(false);
-      }
     }, 100); // Update more frequently for accuracy
 
     return () => clearInterval(timer);
@@ -67,8 +65,9 @@ export default function GameSession({ settings, onComplete }: GameSessionProps) 
 
   // Handle session end when timer reaches 0
   useEffect(() => {
-    if (timeRemaining === 0 && isSessionActive) {
-      setIsSessionActive(false); // Prevent double submission
+    if (timeRemaining === 0 && isSessionActive && !isEndingSessionRef.current) {
+      isEndingSessionRef.current = true; // Prevent double submission
+      setIsSessionActive(false);
       const endSession = async () => {
         try {
           // Create session and submit all problems at once
