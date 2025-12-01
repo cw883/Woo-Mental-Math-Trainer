@@ -84,20 +84,34 @@ export const api = {
 
   // Leaderboard
   async getLeaderboard(): Promise<LeaderboardEntry[]> {
+    console.log('API getLeaderboard - fetching...');
     const response = await fetch(`${API_URL}/leaderboard`);
-    if (!response.ok) throw new Error('Failed to fetch leaderboard');
-    return response.json();
+    if (!response.ok) {
+      console.error('API getLeaderboard failed:', response.status);
+      throw new Error('Failed to fetch leaderboard');
+    }
+    const result = await response.json();
+    console.log('API getLeaderboard - response:', result);
+    return result;
   },
 
   // Session endpoints
   async createSession(isDefaultSettings = false): Promise<{ session_id: number; started_at: string }> {
+    const body = { is_default_settings: isDefaultSettings };
+    console.log('API createSession - sending:', body);
     const response = await fetch(`${API_URL}/sessions`, {
       method: 'POST',
       headers: getHeaders(),
-      body: JSON.stringify({ is_default_settings: isDefaultSettings }),
+      body: JSON.stringify(body),
     });
-    if (!response.ok) throw new Error('Failed to create session');
-    return response.json();
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API createSession failed:', response.status, errorText);
+      throw new Error('Failed to create session');
+    }
+    const result = await response.json();
+    console.log('API createSession - response:', result);
+    return result;
   },
 
   async getSession(sessionId: number): Promise<Session> {
@@ -109,13 +123,20 @@ export const api = {
   },
 
   async completeSession(sessionId: number, score: number): Promise<Session> {
+    console.log('API completeSession - sessionId:', sessionId, 'score:', score);
     const response = await fetch(`${API_URL}/sessions/${sessionId}/complete`, {
       method: 'PATCH',
       headers: getHeaders(),
       body: JSON.stringify({ score }),
     });
-    if (!response.ok) throw new Error('Failed to complete session');
-    return response.json();
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API completeSession failed:', response.status, errorText);
+      throw new Error('Failed to complete session');
+    }
+    const result = await response.json();
+    console.log('API completeSession - response:', result);
+    return result;
   },
 
   async getSessions(page = 1, limit = 20): Promise<SessionSummary[]> {
